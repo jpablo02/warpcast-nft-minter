@@ -114,13 +114,13 @@ app.transaction('/mint', (c) => {
   return c.contract({
     
     abi,
-    //chainId: 'eip155:42161',//arbitrum one
-    chainId: 'eip155:42161',// base sepolia
+    chainId: 'eip155:42161',//arbitrum one
+   // chainId: 'eip155:42161',// base sepolia
     functionName: 'safeMint',
     args: [address, uri],
     //to: '0x1D4de18300d2869B50632A5Fc67c1Ddd1A07F4b6',
-    to: '0x6BA0ea0Fd4eCF22CE429114A5950c78Cba5d9eC1', //base sepolia
-   // to: '0x1119147420Cd9C58980A93FdA3E009fa81c2b0DF',//Arbitrum one
+   // to: '0x6BA0ea0Fd4eCF22CE429114A5950c78Cba5d9eC1', //base sepolia
+    to: '0x4329Eb272A511b97b2612312C253ec160a33B112'// arbitrum one   
   })
 })
 
