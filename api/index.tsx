@@ -24,14 +24,14 @@ export const app = new Frog({
   // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
 })
 
-app.frame('/first', (c) => { 
+app.frame('/', (c) => { 
   return c.res({
     action:"/second",
     image:"https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/1.jpg" ,
     intents: [
       
       
-      <Button value='second'>next</Button>,
+      <Button action='/second'>next</Button>,
      
     ],
   })
@@ -40,22 +40,22 @@ app.frame('/first', (c) => {
 
 app.frame('/second', (c) => {
   return c.res({
-    action: "/first",
+    action: "/third",
     image: "https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/2.jpg",
     intents: [
-      <Button value='/'>Back</Button>,
-      <Button value='/third'>Next</Button>, // Corregido aquí
+      <Button action='/'>Back</Button>,
+      <Button >Next</Button>, // Corregido aquí
     ],
   });
 });
 
 app.frame('/third', (c) => {
   return c.res({
-    action: "/second",
+    action: "/fourth",
     image: "https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/3.jpg",
     intents: [
-      <Button value='/'>Back</Button>,
-      <Button value='/fourth'>Next</Button>, // Corregido aquí
+      <Button action='/second'>Back</Button>,
+      <Button >Next</Button>, // Corregido aquí
     ],
   });
 });
@@ -65,23 +65,23 @@ app.frame('/fourth', (c) => {
   
   return c.res({
     
-    action:"/third",
+    action:"/fifth",
     image:"https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/4.jpg" ,
     intents: [
       
-      <Button value='/'>Back</Button>,
-      <Button value='fifth'>next</Button>,
+      <Button action='/third'>Back</Button>,
+      <Button >next</Button>,
      
     ],
   })
 }),
 
-app.frame('/', (c) => {
+app.frame('/fifth', (c) => {
   return c.res({
     action: '/fourth',
     image: 
       "https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/5.jpg",
-    intents: [<Button value='/'>Back</Button>,,<Button.Transaction target="/mint">Take Bag</Button.Transaction>
+    intents: [<Button action='/fourth'>Back</Button>,,<Button.Transaction target="/mint">Take Bag</Button.Transaction>
   ],
   })
 })
@@ -114,11 +114,13 @@ app.transaction('/mint', (c) => {
   return c.contract({
     
     abi,
-    chainId: 'eip155:84532',
+    //chainId: 'eip155:42161',//arbitrum one
+    chainId: 'eip155:42161',// base sepolia
     functionName: 'safeMint',
     args: [address, uri],
     //to: '0x1D4de18300d2869B50632A5Fc67c1Ddd1A07F4b6',
-    to: '0x6BA0ea0Fd4eCF22CE429114A5950c78Cba5d9eC1',
+    to: '0x6BA0ea0Fd4eCF22CE429114A5950c78Cba5d9eC1', //base sepolia
+   // to: '0x1119147420Cd9C58980A93FdA3E009fa81c2b0DF',//Arbitrum one
   })
 })
 
