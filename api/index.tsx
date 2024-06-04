@@ -24,15 +24,65 @@ export const app = new Frog({
   // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
 })
 
+app.frame('/first', (c) => { 
+  return c.res({
+    action:"/second",
+    image:"https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/1.jpg" ,
+    intents: [
+      
+      
+      <Button value='second'>next</Button>,
+     
+    ],
+  })
+}),
+
+
+app.frame('/second', (c) => {
+  return c.res({
+    action: "/first",
+    image: "https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/2.jpg",
+    intents: [
+      <Button value='/'>Back</Button>,
+      <Button value='/third'>Next</Button>, // Corregido aquí
+    ],
+  });
+});
+
+app.frame('/third', (c) => {
+  return c.res({
+    action: "/second",
+    image: "https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/3.jpg",
+    intents: [
+      <Button value='/'>Back</Button>,
+      <Button value='/fourth'>Next</Button>, // Corregido aquí
+    ],
+  });
+});
+
+
+app.frame('/fourth', (c) => {
+  
+  return c.res({
+    
+    action:"/third",
+    image:"https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/4.jpg" ,
+    intents: [
+      
+      <Button value='/'>Back</Button>,
+      <Button value='fifth'>next</Button>,
+     
+    ],
+  })
+}),
+
 app.frame('/', (c) => {
   return c.res({
-    action: '/finish',
-    image: (
-      <div style={{ color: 'white', display: 'flex', fontSize: 60 }}>
-        Perform a transaction
-      </div>
-    ),
-    intents: [<Button.Transaction target="/mint">Mint</Button.Transaction>],
+    action: '/fourth',
+    image: 
+      "https://gateway.lighthouse.storage/ipfs/QmUhtUX8nD1vEJ9zB9PDTjvxWhyixSQGe71duo7KexXJyy/5.jpg",
+    intents: [<Button value='/'>Back</Button>,,<Button.Transaction target="/mint">Take Bag</Button.Transaction>
+  ],
   })
 })
 
